@@ -16,15 +16,6 @@ jobs:
       DATABASE_NAME: my_db
       DATABASE_USER: db_user
       DATABASE_PASSWORD: db_pass
-      HIBERNATE_CONNECTION_POOL_SIZE: 10
-      HIBERNATE_DIALECT: org.hibernate.dialect.OracleDialect
-      HIBERNATE_FORMAT_SQL: true
-      HIBERNATE_GENERATE_STATISTICS: true
-      HIBERNATE_JDBC_TIME_ZONE: UTC
-      HIBERNATE_SCHEMA_GENERATION_ACTION: create
-      HIBERNATE_SHOW_SQL: true
-      HIBERNATE_SQL_LOAD_SCRIPT_SOURCE: META-INF/schema.sql
-      HIBERNATE_USE_SQL_COMMENTS: true
     steps:
       - uses: actions/checkout@v4
       - name: Set up Java
