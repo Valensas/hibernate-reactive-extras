@@ -14,15 +14,15 @@ logging:
 
 # Reactive Oracle datasource configuration
 database:
-  endpoint: ${DATABASE_ENDPOINT}
-  name: ${DATABASE_NAME}
-  username: ${DATABASE_USER}
-  password: ${DATABASE_PASSWORD}
+  endpoint: localhost:1521
+  name: my_db
+  username: db_user
+  password: db_pass
 
 hibernate:
-  time_zone: ${HIBERNATE_JDBC_TIME_ZONE}
-  pool_size: ${HIBERNATE_CONNECTION_POOL_SIZE}
-  show_sql: ${HIBERNATE_SHOW_SQL}
-  format_sql: ${HIBERNATE_FORMAT_SQL}
-  generate_statistics: ${HIBERNATE_GENERATE_STATISTICS}
+  time_zone: UTC
+  pool_size: 10
+  show_sql: true
+  format_sql: true
+  generate_statistics: true
   database-action: create-drop
