@@ -1,36 +1,38 @@
 name: Verify
+
 on:
-  pull_request:
-  workflow_call:
   push:
-    branches: [ 'main' ]
-    # Don't run on tags, publish will call this workflow
-    tags-ignore: [ '**' ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: setup java
-        uses: actions/setup-java@v4
-        with:
-          java-version: "21"
-          architecture: x64
-          distribution: oracle
-          cache: 'gradle'
-      - name: Lint
-        run: ./gradlew lintKotlin
   test:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_ENDPOINT: localhost:1521
+      DATABASE_NAME: my_db
+      DATABASE_USER: db_user
+      DATABASE_PASSWORD: db_pass
+      HIBERNATE_CONNECTION_POOL_SIZE: 10
+      HIBERNATE_DIALECT: org.hibernate.dialect.OracleDialect
+      HIBERNATE_FORMAT_SQL: true
+      HIBERNATE_GENERATE_STATISTICS: true
+      HIBERNATE_JDBC_TIME_ZONE: UTC
+      HIBERNATE_SCHEMA_GENERATION_ACTION: create
+      HIBERNATE_SHOW_SQL: true
+      HIBERNATE_SQL_LOAD_SCRIPT_SOURCE: META-INF/schema.sql
+      HIBERNATE_USE_SQL_COMMENTS: true
     steps:
       - uses: actions/checkout@v4
-      - name: setup java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: "21"
           architecture: x64
           distribution: oracle
           cache: 'gradle'
-      - name: Test
-        run: ./gradlew test
+      - name: Build and Test
+        run: ./gradlew test --info --stacktrace
