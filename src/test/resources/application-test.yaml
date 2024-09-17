@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: hibernate_reactive
+
+logging:
+  level:
+    org:
+      hibernate:
+        sql: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: DEBUG
+
+# Reactive Oracle datasource configuration
+database:
+  endpoint: ${DATABASE_ENDPOINT}
+  name: ${DATABASE_NAME}
+  username: ${DATABASE_USER}
+  password: ${DATABASE_PASSWORD}
+
+hibernate:
+  time_zone: ${HIBERNATE_JDBC_TIME_ZONE}
+  pool_size: ${HIBERNATE_CONNECTION_POOL_SIZE}
+  show_sql: ${HIBERNATE_SHOW_SQL}
+  format_sql: ${HIBERNATE_FORMAT_SQL}
+  generate_statistics: ${HIBERNATE_GENERATE_STATISTICS}
+  database-action: create-drop
