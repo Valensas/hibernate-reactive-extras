@@ -12,8 +12,6 @@ plugins {
     id("maven-publish")
 
 }
-group = "com.valensas.hibernate_reactive"
-version = "1.0.0"
 description = "Reactive hibernate project"
 
 java {
