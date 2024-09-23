@@ -12,9 +12,8 @@ import org.springframework.context.annotation.Configuration
 import org.hibernate.cfg.Configuration as HibernateConfig
 
 @Configuration
-@EnableConfigurationProperties(DatabaseReactiveConfig::class, HibernateReactiveConfig::class)
+@EnableConfigurationProperties(HibernateReactiveConfig::class)
 class ReactiveHibernateAutoConfig(
-    private val databaseConfig: DatabaseReactiveConfig,
     private val hibernateReactiveConfig: HibernateReactiveConfig,
     private val applicationContext: ApplicationContext,
 ) {
@@ -24,10 +23,10 @@ class ReactiveHibernateAutoConfig(
 
         configuration.setProperty(
             "hibernate.connection.url",
-            "jdbc:${databaseConfig.driver}:@${databaseConfig.endpoint}/${databaseConfig.name}",
+            "jdbc:${hibernateReactiveConfig.driver}:@${hibernateReactiveConfig.endpoint}/${hibernateReactiveConfig.name}",
         )
-        configuration.setProperty("hibernate.connection.username", databaseConfig.userName)
-        configuration.setProperty("hibernate.connection.password", databaseConfig.password)
+        configuration.setProperty("hibernate.connection.username", hibernateReactiveConfig.userName)
+        configuration.setProperty("hibernate.connection.password", hibernateReactiveConfig.password)
         configuration.setProperty("hibernate.jdbc.time_zone", hibernateReactiveConfig.timeZone)
         configuration.setProperty("hibernate.connection.pool_size", hibernateReactiveConfig.poolSize)
         configuration.setProperty("hibernate.show_sql", hibernateReactiveConfig.showSql)
