@@ -18,11 +18,11 @@ database:
   name: my_db
   username: db_user
   password: db_pass
+  driver: oracle:thin
 
 hibernate:
   time_zone: UTC
   pool_size: 10
   show_sql: true
   format_sql: true
-  generate_statistics: true
   database-action: create-drop

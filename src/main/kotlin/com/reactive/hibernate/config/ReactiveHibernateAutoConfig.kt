@@ -24,7 +24,7 @@ class ReactiveHibernateAutoConfig(
 
         configuration.setProperty(
             "hibernate.connection.url",
-            "jdbc:oracle:thin:@${databaseConfig.endpoint}/${databaseConfig.name}",
+            "jdbc:${databaseConfig.driver}:@${databaseConfig.endpoint}/${databaseConfig.name}",
         )
         configuration.setProperty("hibernate.connection.username", databaseConfig.userName)
         configuration.setProperty("hibernate.connection.password", databaseConfig.password)
