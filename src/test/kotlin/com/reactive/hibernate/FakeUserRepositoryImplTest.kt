@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles
 @ActiveProfiles("test")
 @SpringBootTest
 class FakeUserRepositoryImplTest(
-    @Autowired private val fakeUserRepository: FakeUserRepository,
+    @Autowired private val fakeUserRepository: FakeUserRepository
 ) {
     @AfterEach
     fun cleanup() =
@@ -37,7 +37,7 @@ class FakeUserRepositoryImplTest(
                     FakeUser().apply {
                         name = "User 2"
                         age = 30
-                    },
+                    }
                 )
 
             entitiesToSave.forEach { fakeUserRepository.add(it) }
@@ -88,7 +88,7 @@ class FakeUserRepositoryImplTest(
                     FakeUser().apply {
                         name = "User 3"
                         age = 35
-                    },
+                    }
                 )
 
             entitiesToSave.forEach { fakeUserRepository.add(it) }
@@ -130,7 +130,7 @@ class FakeUserRepositoryImplTest(
                     FakeUser().apply {
                         name = "Tuna"
                         age = 23
-                    },
+                    }
                 )
 
             entitiesToSave.forEach { fakeUserRepository.add(it) }
@@ -255,7 +255,7 @@ class FakeUserRepositoryImplTest(
                     FakeUser().apply {
                         name = "User 2"
                         age = 30
-                    },
+                    }
                 )
 
             entitiesToSave.forEach { fakeUserRepository.add(it) }

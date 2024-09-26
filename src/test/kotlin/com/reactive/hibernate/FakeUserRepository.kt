@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class FakeUserRepository(
-    sessionFactory: Mutiny.SessionFactory,
+    sessionFactory: Mutiny.SessionFactory
 ) : BaseRepository<FakeUser>(sessionFactory, FakeUser::class.java)

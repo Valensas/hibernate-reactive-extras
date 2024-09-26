@@ -9,40 +9,37 @@ import java.util.Optional
 
 data class Pageable(
     val pageNumber: Int,
-    val pageSize: Int,
+    val pageSize: Int
 )
 
 @Repository
 abstract class BaseRepository<T : Any>(
     protected val sessionFactory: SessionFactory,
-    protected val entityClass: Class<T>,
+    protected val entityClass: Class<T>
 ) {
     @Transactional
-    suspend fun count(): Long? =
-        sessionFactory
-            .withTransaction { session, _ ->
-                session
-                    .createSelectionQuery("select count(e) from ${entityClass.simpleName} e", Long::class.javaObjectType)
-                    .singleResult
-            }.awaitSuspending()
+    suspend fun count(): Long? = sessionFactory
+        .withTransaction { session, _ ->
+            session
+                .createSelectionQuery("select count(e) from ${entityClass.simpleName} e", Long::class.javaObjectType)
+                .singleResult
+        }.awaitSuspending()
 
     @Transactional
-    suspend fun add(entity: T): T =
-        sessionFactory
-            .withTransaction { session, _ ->
-                session.persist(entity).replaceWith(entity)
-            }.awaitSuspending()
+    suspend fun add(entity: T): T = sessionFactory
+        .withTransaction { session, _ ->
+            session.persist(entity).replaceWith(entity)
+        }.awaitSuspending()
 
     @Transactional
     suspend fun update(
         entity: T,
         id: Long,
-        updateEntity: (T) -> T,
+        updateEntity: (T) -> T
     ): T {
-        val existingEntity =
-            findByIdWithLock(id).orElseThrow {
-                IllegalArgumentException("${entityClass.simpleName} with id $id not found")
-            }
+        val existingEntity = findByIdWithLock(id).orElseThrow {
+            IllegalArgumentException("${entityClass.simpleName} with id $id not found")
+        }
 
         val updatedEntity = updateEntity(existingEntity)
 
@@ -53,48 +50,43 @@ abstract class BaseRepository<T : Any>(
     }
 
     @Transactional
-    suspend fun existsById(id: Long): Boolean =
-        sessionFactory
-            .withTransaction { session, _ ->
-                session.find(entityClass, id)
-            }.awaitSuspending()
-            .let { it != null }
+    suspend fun existsById(id: Long): Boolean = sessionFactory
+        .withTransaction { session, _ ->
+            session.find(entityClass, id)
+        }.awaitSuspending()
+        .let { it != null }
 
-    suspend fun findByIdWithLock(id: Long): Optional<T> =
-        sessionFactory
-            .withTransaction { session, _ ->
-                session.find(entityClass, id, LockMode.PESSIMISTIC_WRITE)
-            }.awaitSuspending()
-            .let { Optional.ofNullable(it) }
+    suspend fun findByIdWithLock(id: Long): Optional<T> = sessionFactory
+        .withTransaction { session, _ ->
+            session.find(entityClass, id, LockMode.PESSIMISTIC_WRITE)
+        }.awaitSuspending()
+        .let { Optional.ofNullable(it) }
 
     @Transactional
-    suspend fun findById(id: Long): T? =
-        sessionFactory
-            .withTransaction { session, _ ->
-                session.find(entityClass, id)
-            }.awaitSuspending()
+    suspend fun findById(id: Long): T? = sessionFactory
+        .withTransaction { session, _ ->
+            session.find(entityClass, id)
+        }.awaitSuspending()
 
     @Transactional
     suspend fun findUserByAnyField(
         fieldName: String,
-        value: Any,
-    ): List<T> =
-        sessionFactory
-            .withTransaction { session, _ ->
-                session
-                    .createSelectionQuery("from ${entityClass.simpleName} e where e.$fieldName = :value", entityClass)
-                    .setParameter("value", value)
-                    .resultList
-            }.awaitSuspending()
+        value: Any
+    ): List<T> = sessionFactory
+        .withTransaction { session, _ ->
+            session
+                .createSelectionQuery("from ${entityClass.simpleName} e where e.$fieldName = :value", entityClass)
+                .setParameter("value", value)
+                .resultList
+        }.awaitSuspending()
 
     @Transactional
-    suspend fun findAll(): List<T> =
-        sessionFactory
-            .withTransaction { session, _ ->
-                session
-                    .createSelectionQuery("select e from ${entityClass.simpleName} e", entityClass)
-                    .resultList
-            }.awaitSuspending()
+    suspend fun findAll(): List<T> = sessionFactory
+        .withTransaction { session, _ ->
+            session
+                .createSelectionQuery("select e from ${entityClass.simpleName} e", entityClass)
+                .resultList
+        }.awaitSuspending()
 
     @Transactional
     suspend fun findAll(pageable: Pageable): List<T> {

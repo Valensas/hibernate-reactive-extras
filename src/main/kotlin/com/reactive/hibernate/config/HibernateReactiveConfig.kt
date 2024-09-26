@@ -13,5 +13,5 @@ data class HibernateReactiveConfig(
     val endpoint: String,
     val name: String,
     val userName: String,
-    val password: String,
+    val password: String
 )

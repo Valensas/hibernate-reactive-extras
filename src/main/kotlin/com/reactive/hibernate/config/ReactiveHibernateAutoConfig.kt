@@ -15,7 +15,7 @@ import org.hibernate.cfg.Configuration as HibernateConfig
 @EnableConfigurationProperties(HibernateReactiveConfig::class)
 class ReactiveHibernateAutoConfig(
     private val hibernateReactiveConfig: HibernateReactiveConfig,
-    private val applicationContext: ApplicationContext,
+    private val applicationContext: ApplicationContext
 ) {
     @Bean
     fun sessionFactory(): Mutiny.SessionFactory {
@@ -23,7 +23,7 @@ class ReactiveHibernateAutoConfig(
 
         configuration.setProperty(
             "hibernate.connection.url",
-            "jdbc:${hibernateReactiveConfig.driver}:@${hibernateReactiveConfig.endpoint}/${hibernateReactiveConfig.name}",
+            "jdbc:${hibernateReactiveConfig.driver}:@${hibernateReactiveConfig.endpoint}/${hibernateReactiveConfig.name}"
         )
         configuration.setProperty("hibernate.connection.username", hibernateReactiveConfig.userName)
         configuration.setProperty("hibernate.connection.password", hibernateReactiveConfig.password)
@@ -37,21 +37,19 @@ class ReactiveHibernateAutoConfig(
             configuration.addAnnotatedClass(entityClass)
         }
 
-        val serviceRegistry =
-            ReactiveServiceRegistryBuilder()
-                .applySettings(configuration.properties)
-                .build()
+        val serviceRegistry = ReactiveServiceRegistryBuilder()
+            .applySettings(configuration.properties)
+            .build()
 
         return configuration.buildSessionFactory(serviceRegistry).unwrap(Mutiny.SessionFactory::class.java)
     }
 
     fun findEntityAnnotatedClasses(): Set<Class<*>> {
-        val basePackages =
-            applicationContext
-                .getBeansWithAnnotation(
-                    SpringBootApplication::class.java,
-                ).values
-                .map { it::class.java.packageName }
+        val basePackages = applicationContext
+            .getBeansWithAnnotation(
+                SpringBootApplication::class.java
+            ).values
+            .map { it::class.java.packageName }
 
         val reflections = Reflections(basePackages)
 
