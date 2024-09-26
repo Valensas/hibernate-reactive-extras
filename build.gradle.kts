@@ -12,7 +12,7 @@ plugins {
     id("maven-publish")
 
 }
-description = "Reactive hibernate project"
+description = "This library provides a reactive Hibernate repository for non-blocking CRUD operations"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -42,10 +42,6 @@ tasks.withType<Test> {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("io.netty:netty-all:4.1.75.Final")
     implementation ("org.reflections:reflections:0.9.12")
 
 
