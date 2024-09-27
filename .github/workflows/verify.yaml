@@ -1,0 +1,29 @@
+name: Verify
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_ENDPOINT: localhost:1521
+      DATABASE_NAME: my_db
+      DATABASE_USER: db_user
+      DATABASE_PASSWORD: db_pass
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          architecture: x64
+          distribution: oracle
+          cache: 'gradle'
+      - name: Build and Test
+        run: ./gradlew test --info --stacktrace

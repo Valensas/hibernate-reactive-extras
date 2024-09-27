@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: hibernate_reactive
+
+logging:
+  level:
+    org:
+      hibernate:
+        sql: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: DEBUG
+
+# Reactive Oracle datasource configuration
+hibernate:
+  reactive:
+    endpoint: localhost:1521
+    name: my_db
+    username: db_user
+    password: db_pass
+    driver: oracle:thin
+    time_zone: UTC
+    pool_size: 10
+    show_sql: true
+    format_sql: true
+    database-action: create-drop
