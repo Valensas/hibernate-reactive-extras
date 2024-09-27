@@ -9,21 +9,29 @@ on:
       - main
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_ENDPOINT: localhost:1521
-      DATABASE_NAME: my_db
-      DATABASE_USER: db_user
-      DATABASE_PASSWORD: db_pass
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Java
+      - name: setup java
         uses: actions/setup-java@v4
         with:
           java-version: "21"
           architecture: x64
           distribution: oracle
           cache: 'gradle'
-      - name: Build and Test
-        run: ./gradlew test --info --stacktrace
+      - name: Lint
+        run: ./gradlew lintKotlin
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          architecture: x64
+          distribution: oracle
+          cache: 'gradle'
+      - name: Test
+        run: ./gradlew test
