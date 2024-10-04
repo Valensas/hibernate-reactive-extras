@@ -23,7 +23,7 @@ class ReactiveHibernateAutoConfig(
 
         configuration.setProperty(
             "hibernate.connection.url",
-            "jdbc:postgresql://${hibernateReactiveConfig.endpoint}/${hibernateReactiveConfig.name}"
+            "jdbc:${hibernateReactiveConfig.driver}://${hibernateReactiveConfig.endpoint}/${hibernateReactiveConfig.name}"
         )
         configuration.setProperty("hibernate.connection.username", hibernateReactiveConfig.userName)
         configuration.setProperty("hibernate.connection.password", hibernateReactiveConfig.password)

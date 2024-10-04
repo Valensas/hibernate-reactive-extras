@@ -30,7 +30,7 @@ hibernate:
     name: exposed_test
     username: db_user
     password: db_pass
-    driver: org.postgresql.Driver
+    driver: postgresql
     time_zone: UTC
     pool_size: 10
     show_sql: true
