@@ -13,6 +13,7 @@ plugins {
 
 }
 group = "com.valensas"
+version = "1.0.0"
 description = "This library provides a reactive Hibernate repository for non-blocking CRUD operations"
 
 java {
