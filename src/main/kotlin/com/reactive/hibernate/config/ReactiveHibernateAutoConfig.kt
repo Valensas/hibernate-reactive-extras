@@ -23,7 +23,7 @@ class ReactiveHibernateAutoConfig(
 
         configuration.setProperty(
             "hibernate.connection.url",
-            "jdbc:${hibernateReactiveConfig.driver}:@${hibernateReactiveConfig.endpoint}/${hibernateReactiveConfig.name}"
+            "jdbc:postgresql://${hibernateReactiveConfig.endpoint}/${hibernateReactiveConfig.name}"
         )
         configuration.setProperty("hibernate.connection.username", hibernateReactiveConfig.userName)
         configuration.setProperty("hibernate.connection.password", hibernateReactiveConfig.password)
@@ -32,6 +32,7 @@ class ReactiveHibernateAutoConfig(
         configuration.setProperty("hibernate.show_sql", hibernateReactiveConfig.showSql)
         configuration.setProperty("hibernate.format_sql", hibernateReactiveConfig.formatSql)
         configuration.setProperty("jakarta.persistence.schema-generation.database.action", hibernateReactiveConfig.databaseAction)
+
         val entityClasses = findEntityAnnotatedClasses()
         entityClasses.forEach { entityClass ->
             configuration.addAnnotatedClass(entityClass)
