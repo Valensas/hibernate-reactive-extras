@@ -52,7 +52,6 @@ dependencies {
     implementation("com.ongres.scram:common:2.1")
     implementation("com.ongres.scram:client:2.1")
     implementation("io.vertx:vertx-core:4.3.5")
-    //implementation("io.vertx:vertx-oracle-client:4.3.5")
     implementation("io.vertx:vertx-sql-client:4.3.5")
     implementation("io.smallrye.reactive:mutiny-kotlin:1.6.0")
     implementation("io.smallrye.reactive:mutiny-reactor:1.7.0")
