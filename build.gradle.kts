@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.regex.Pattern.compile
 
 plugins {
     kotlin("jvm") version "1.9.24"
@@ -13,6 +12,7 @@ plugins {
     id("maven-publish")
 
 }
+group = "com.valensas"
 description = "This library provides a reactive Hibernate repository for non-blocking CRUD operations"
 
 java {
