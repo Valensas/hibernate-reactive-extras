@@ -20,14 +20,14 @@ logging:
 database:
   host: localhost
   port: 5432
-  name: exposed_test
+  name: hibernate_reactive_test
   username: db_user
   password: db_pass
 
 hibernate:
   reactive:
     endpoint: ${database.host}:${database.port}
-    name: exposed_test
+    name: hibernate_reactive_test
     username: db_user
     password: db_pass
     driver: postgresql

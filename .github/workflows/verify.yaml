@@ -27,7 +27,7 @@ jobs:
       postgres:
         image: postgres:16.1-alpine
         env:
-          POSTGRES_DB: exposed_test
+          POSTGRES_DB: hibernate_reactive_test
           POSTGRES_USER: db_user
           POSTGRES_PASSWORD: db_pass
         options: >-
