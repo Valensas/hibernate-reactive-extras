@@ -2,6 +2,11 @@ spring:
   application:
     name: hibernate_reactive
 
+  datasource:
+    url: jdbc:postgresql://${database.host}:${database.port}/${database.name}
+    username: ${database.username}
+    password: ${database.password}
+
 logging:
   level:
     org:
@@ -12,14 +17,20 @@ logging:
             sql:
               BasicBinder: DEBUG
 
-# Reactive Oracle datasource configuration
+database:
+  host: localhost
+  port: 5432
+  name: hibernate_reactive_test
+  username: db_user
+  password: db_pass
+
 hibernate:
   reactive:
-    endpoint: localhost:1521
-    name: my_db
+    endpoint: ${database.host}:${database.port}
+    name: hibernate_reactive_test
     username: db_user
     password: db_pass
-    driver: oracle:thin
+    driver: postgresql
     time_zone: UTC
     pool_size: 10
     show_sql: true
